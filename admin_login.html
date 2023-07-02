@@ -63,11 +63,12 @@
                 password: password
             };
 
-            axios.post('https://transitserver.govindsr.me/api/v2/loginAdmin', data)
+            axios.post('https://transitserver.govindsr.me/api/v2/loginAdmin', data, {
+                withCredentials: true
+            })
                 .then(function (response) {
                     // Successful login, redirect to admin_dashboard.html
                     window.location.href = 'admin_dashboard.html';
-                    console.log(response.cookie)
                 })
                 .catch(function (error) {
                     // Failed login, display alert
