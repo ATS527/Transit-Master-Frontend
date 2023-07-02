@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+        }
+
+        .form-input input {
+            padding: 5px;
+            width: 200px;
+        }
+
+        .form-input input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Admin Login</h2>
+    <div class="form-container">
+        <div class="form-input">
+            <input type="email" id="email" placeholder="Email" required>
+        </div>
+        <div class="form-input">
+            <input type="password" id="password" placeholder="Password" required>
+        </div>
+        <div class="form-input">
+            <input type="submit" value="Login" onclick="loginAdmin()">
+        </div>
+    </div>
+
+    <script>
+        function loginAdmin() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            var data = {
+                email: email,
+                password: password
+            };
+
+            axios.post('https://transitserver.govindsr.me/api/v2/loginAdmin', data)
+                .then(function (response) {
+                    // Successful login, redirect to admin_dashboard.html
+                    window.location.href = 'admin_dashboard.html';
+                })
+                .catch(function (error) {
+                    // Failed login, display alert
+                    alert('Login failed. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>

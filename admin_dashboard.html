@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            padding: 20px;
+            width: 200px;
+        }
+
+        .sidebar a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 20px;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#" onclick="getAllAdmins()">Get All Admins</a>
+        <a href="#" onclick="logout()">Logout</a>
+        <a href="#" onclick="createStationMaster()">Create Station Master</a>
+        <a href="#" onclick="getAllStationMasters()">Get All Station Masters</a>
+    </div>
+
+    <div class="content">
+        <!-- Content area -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function getAllAdmins() {
+            axios.get('https://transitserver.govindsr.me/api/v2/getAllAdmins')
+                .then(function (response) {
+                    displayData(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        function logout() {
+            // Your code for logging out
+            console.log("Logging out...");
+        }
+
+        function createStationMaster() {
+            // Your code to create a station master
+            console.log("Creating a station master...");
+        }
+
+        function getAllStationMasters() {
+            // Your code to get all station masters
+            console.log("Getting all station masters...");
+        }
+
+        function displayData(data) {
+            var content = document.querySelector('.content');
+            content.innerHTML = "<h3>All Admins</h3><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+        }
+    </script>
+</body>
+</html>
