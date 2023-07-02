@@ -26,6 +26,16 @@
             padding: 20px;
             flex: 1;
         }
+
+        table {
+            width: 100%;
+        }
+
+        table th, table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -46,7 +56,7 @@
         function getAllAdmins() {
             axios.get('https://transitserver.govindsr.me/api/v2/getAllAdmins')
                 .then(function (response) {
-                    displayData(response.data);
+                    displayAdmins(response.data);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -54,24 +64,150 @@
         }
 
         function logout() {
-            // Your code for logging out
-            console.log("Logging out...");
+            axios.get('https://transitserver.govindsr.me/api/v2/logoutAdmin')
+                .then(function (response) {
+                    window.location.href = 'index.html';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
 
         function createStationMaster() {
-            // Your code to create a station master
-            console.log("Creating a station master...");
+            var username = prompt("Enter the username:");
+            var email = prompt("Enter the email:");
+            var password = prompt("Enter the password:");
+
+            var data = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            axios.post('https://transitserver.govindsr.me/api/v2/createStationMaster', data)
+                .then(function (response) {
+                    alert("Station Master created successfully!");
+                })
+                .catch(function (error) {
+                    alert("Failed to create Station Master. Please try again.");
+                    console.log(error);
+                });
         }
 
         function getAllStationMasters() {
             // Your code to get all station masters
             console.log("Getting all station masters...");
+            axios.get('https://transitserver.govindsr.me/api/v2/getAllStationMasters')
+                .then(function (response) {
+                    displayStationMasterData(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
 
-        function displayData(data) {
+        function displayStationMasterData(stationMasters) {
             var content = document.querySelector('.content');
-            content.innerHTML = "<h3>All Admins</h3><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+            content.innerHTML = "<h3>All Station Masters</h3>";
+
+            if (stationMasters.length === 0) {
+                content.innerHTML += "<p>No station masters found.</p>";
+                return;
+            }
+
+            var table = document.createElement("table");
+            var thead = document.createElement("thead");
+            var tbody = document.createElement("tbody");
+
+            var headRow = document.createElement("tr");
+            headRow.innerHTML = "<th>Email</th><th>Username</th><th></th>";
+            thead.appendChild(headRow);
+
+            for (var i = 0; i < stationMasters.length; i++) {
+                var stationMaster = stationMasters[i];
+
+                var row = document.createElement("tr");
+                row.innerHTML = "<td>" + stationMaster.email + "</td><td>" + stationMaster.username + "</td>";
+
+                var deleteButtonCell = document.createElement("td");
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", deleteStationMaster.bind(null, stationMaster.email));
+                deleteButtonCell.appendChild(deleteButton);
+
+                row.appendChild(deleteButtonCell);
+                tbody.appendChild(row);
+            }
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            content.appendChild(table);
         }
+
+        function deleteStationMaster(email) {
+            axios.delete(`https://transitserver.govindsr.me/api/v2/deleteStationMaster/${email}`,)
+                .then(function (response) {
+                    alert("Station Master deleted successfully!");
+                    // Refresh the station master list
+                    getAllStationMasters();
+                })
+                .catch(function (error) {
+                    alert("Failed to delete station master. Please try again.");
+                    console.log(error);
+                });
+        }
+
+        function displayAdmins(admins) {
+            var content = document.querySelector('.content');
+            content.innerHTML = "<h3>All Admins</h3>";
+
+            if (admins.length === 0) {
+                content.innerHTML += "<p>No admins found.</p>";
+                return;
+            }
+
+            var table = document.createElement("table");
+            var thead = document.createElement("thead");
+            var tbody = document.createElement("tbody");
+
+            var headRow = document.createElement("tr");
+            headRow.innerHTML = "<th>Email</th><th>Username</th><th></th>";
+            thead.appendChild(headRow);
+
+            for (var i = 0; i < admins.length; i++) {
+                var admin = admins[i];
+
+                var row = document.createElement("tr");
+                row.innerHTML = "<td>" + admin.email + "</td><td>" + admin.username + "</td>";
+
+                var deleteButtonCell = document.createElement("td");
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", deleteAdmin.bind(null, admin.email));
+                deleteButtonCell.appendChild(deleteButton);
+
+                row.appendChild(deleteButtonCell);
+                tbody.appendChild(row);
+            }
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            content.appendChild(table);
+        }
+
+        function deleteAdmin(email) {
+            axios.delete(`https://transitserver.govindsr.me/api/v2/deleteAdmin/${email}`,)
+                .then(function (response) {
+                    alert("Admin deleted successfully!");
+                    // Refresh the admin list
+                    getAllAdmins();
+                })
+                .catch(function (error) {
+                    alert("Failed to delete admin. Please try again.");
+                    console.log(error);
+                });
+        }
+
     </script>
 </body>
 </html>
