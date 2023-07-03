@@ -64,21 +64,13 @@
           password: password,
         };
 
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-
-        const instance = axios.create({
-          withCredentials: true,
-        });
-
-        instance
+        axios
           .post(
             "https://transitserver.govindsr.me/api/v2/loginAdmin",
             data,
-            config
+            {
+              withCredentials: true
+            }
           )
           .then(function (response) {
             // Successful login, redirect to admin_dashboard.html
