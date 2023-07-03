@@ -54,11 +54,14 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         function getAllAdmins() {
-            axios.get('https://transitserver.govindsr.me/api/v2/getAllAdmins')
-                .then(function (response) {
-                    displayAdmins(response.data);
+          //use fetch api to get all admins
+            console.log("Getting all admins...");
+            fetch("https://transitserver.govindsr.me/api/v2/getAllAdmins")
+                .then((response) => response.json())
+                .then((data) => {
+                    displayAdmins(data);
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
                 });
         }

@@ -3,7 +3,6 @@
 
 <head>
   <title>Admin Login</title>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <style>
     body {
       text-align: center;
@@ -65,28 +64,28 @@
         password: password,
       };
 
-      axios
-        .post(
-          "https://transitserver.govindsr.me/api/v2/loginAdmin",
-          data,
-          { withCredentials: true }
-        )
-        .then(function (response) {
-          // Successful login, retrieve the token cookie
-          var token = document.cookie.replace(
-            /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
-            "$1"
-          );
+      console.log("ello there v2");
 
-          // Use the token as needed
-          console.log(token);
-
-          // Redirect to admin_dashboard.html or perform other actions
-          window.location.href = "admin_dashboard.html";
+      fetch("https://transitserver.govindsr.me/api/v2/loginAdmin", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
         })
-        .catch(function (error) {
-          // Failed login, display alert
-          alert("Login failed. Please try again.");
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          if (data.success == true) {
+            window.location.href = "admin_dashboard.html";
+          } else {
+            alert("Invalid credentials");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
     }
   </script>
