@@ -281,7 +281,7 @@
 
         function logout() {
             fetch('https://transitserver.govindsr.me/api/v2/logoutAdmin', {
-                method: 'POST'
+                method: 'GET'
             })
                 .then(response => {
                     if (response.ok) {
