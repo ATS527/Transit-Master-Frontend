@@ -1,94 +1,40 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Admin Login</title>
-  <style>
-    body {
-      text-align: center;
-      margin-top: 100px;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-    }
-
-    .form-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .form-input {
-      margin-bottom: 10px;
-    }
-
-    .form-input input {
-      padding: 5px;
-      width: 200px;
-    }
-
-    .form-input input[type="submit"] {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
-<body>
-  <h2>Admin Login</h2>
-  <div class="form-container">
-    <div class="form-input">
-      <input type="email" id="email" placeholder="Email" required />
-    </div>
-    <div class="form-input">
-      <input type="password" id="password" placeholder="Password" required />
-    </div>
-    <div class="form-input">
-      <input type="submit" value="Login" onclick="loginAdmin()" />
-    </div>
-  </div>
-
   <script>
     function loginAdmin() {
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-      var data = {
-        email: email,
-        password: password,
-      };
-
-      console.log("ello there v2");
-
-      fetch("https://transitserver.govindsr.me/api/v2/loginAdmin", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-          credentials: "include",
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          if (data.success == true) {
-            window.location.href = "admin_dashboard.html";
-          } else {
-            alert("Invalid credentials");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      fetch('https://transitserver.govindsr.me/api/v2/loginAdmin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email, password: password })
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = 'admin_dashboard.html';
+        } else {
+          alert('Invalid email or password. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
   </script>
+</head>
+<body>
+  <h1>Admin Login</h1>
+  <form>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" required><br><br>
+    <input type="button" value="Login" onclick="loginAdmin()">
+  </form>
 </body>
-
 </html>
