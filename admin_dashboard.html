@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>TransitMaster/Admin Dashboard</title>
+    <link rel="icon" href="Kerala_State_Road_Transport_Corporation_logo.png">
+    <link rel="stylesheet" href="dashboard.css">
     <style>
-        .tab {
-            display: none;
-        }
 
         table {
             width: 100%;
@@ -301,16 +301,28 @@
 </head>
 
 <body>
-    <h1>Admin Dashboard</h1>
-    <div>
-        <button onclick="showTab('allAdmins')">All Admins</button>
-        <button onclick="showTab('deleteAdmin')">Delete Admin</button>
-        <button onclick="showTab('createStationMaster')">Create Station Master</button>
-        <button onclick="showTab('allStationMasters')">All Station Masters</button>
-        <button onclick="showTab('deleteStationMaster')">Delete Station Master</button>
-        <button onclick="logout()">Logout</button>
+    <div class="logo">
+        <img src="Kerala_State_Road_Transport_Corporation_logo.png" alt="Logo"><br><br><br>
+        <h6>TransitMaster</h6>
     </div>
 
+    <div class="title_head">
+        <i class="fa fa-user-circle"></i>
+        <button onclick="logout()">Logout</button>
+        <h2>Admin Dashboard</h2>
+      </div>   
+
+    <div class="toolbar">
+        <h3>ADMIN</h3>
+        <button onclick="showTab('allAdmins')">LIST</button><br>
+        <button onclick="showTab('deleteAdmin')">DELETE</button><br>
+        <h3>STATION MASTER</h3>
+        <button onclick="showTab('allStationMasters')">LIST</button><br>
+        <button onclick="showTab('createStationMaster')">CREATE</button><br>
+        <button onclick="showTab('deleteStationMaster')">DELETE</button><br>
+        <a href="" id="helpdesk">Contact us</a>
+    </div>
+    <div class="details">
     <!-- All Admins Tab -->
     <div id="allAdmins" class="tab"></div>
 
@@ -322,12 +334,12 @@
         <h2>Create Station Master</h2>
         <form id="createStationMasterForm">
             <label for="stationMasterUsername">Username:</label>
-            <input type="text" id="stationMasterUsername" required><br><br>
+            <input type="text" id="stationMasterUsername" required><br><br><br>
             <label for="stationMasterEmail">Email:</label>
-            <input type="email" id="stationMasterEmail" required><br><br>
+            <input type="email" id="stationMasterEmail" required><br><br><br>
             <label for="stationMasterPassword">Password:</label>
-            <input type="password" id="stationMasterPassword" required><br><br>
-            <button type="button" onclick="createStationMaster()">Create</button>
+            <input type="password" id="stationMasterPassword" required><br><br><br>
+            <button type="button" onclick="createStationMaster()">create</button>
         </form>
     </div>
 
@@ -336,6 +348,7 @@
 
     <!-- Delete Station Master Tab -->
     <div id="deleteStationMaster" class="tab"></div>
+</div>
 
     <script>
         // Show the 'All Admins' tab by default when the page loads
