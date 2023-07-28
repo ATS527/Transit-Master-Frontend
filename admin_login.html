@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Login</title>
+  <link rel="icon" href="Kerala_State_Road_Transport_Corporation_logo.png">
+  <title>TransitMaster/Admin Login</title>
   <script>
     function loginAdmin() {
       const email = document.getElementById('email').value;
@@ -26,15 +27,20 @@
       });
     }
   </script>
+   <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <div class="bgimage"></div>
+  <div class="title_head">
+  <img src="Kerala_State_Road_Transport_Corporation_logo.png" alt="Logo">
   <h1>Admin Login</h1>
-  <form>
-    <label for="email">Email:</label>
+  <div class="button-container">
+  <form class="formbox">
+    <label for="email">Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
     <input type="email" id="email" required><br><br>
     <label for="password">Password:</label>
     <input type="password" id="password" required><br><br>
     <input type="button" value="Login" onclick="loginAdmin()">
-  </form>
+  </form></div></div>
 </body>
 </html>
